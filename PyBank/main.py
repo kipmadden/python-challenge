@@ -5,7 +5,7 @@ from statistics import mean as avg
 
 # Create a file path for the budget_data csv file
 csvpath = os.path.join('Resources', 'budget_data.csv')
-
+print(csvpath)
 # Read in the csv file
 with open(csvpath, newline='') as csvfile:
 

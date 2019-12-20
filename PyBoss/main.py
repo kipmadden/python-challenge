@@ -13,8 +13,17 @@ with open(csvpath, newline='') as csvfile:
 
     # Set variable to capture two columns of data EmpID and Candidate name
     employeeList = []
-    canList = []
-    canDict = {}
+    us_state_abbrev = {
+        'Alabama': 'AL','Alaska': 'AK','Arizona': 'AZ','Arkansas': 'AR','California': 'CA','Colorado': 'CO',
+        'Connecticut': 'CT','Delaware': 'DE','Florida': 'FL','Georgia': 'GA','Hawaii': 'HI','Idaho': 'ID',
+        'Illinois': 'IL','Indiana': 'IN','Iowa': 'IA','Kansas': 'KS','Kentucky': 'KY','Louisiana': 'LA',
+        'Maine': 'ME','Maryland': 'MD','Massachusetts': 'MA','Michigan': 'MI','Minnesota': 'MN','Mississippi': 'MS',
+        'Missouri': 'MO','Montana': 'MT','Nebraska': 'NE','Nevada': 'NV','New Hampshire': 'NH','New Jersey': 'NJ',
+        'New Mexico': 'NM','New York': 'NY','North Carolina': 'NC','North Dakota': 'ND','Ohio': 'OH',
+        'Oklahoma': 'OK','Oregon': 'OR','Pennsylvania': 'PA','Rhode Island': 'RI','South Carolina': 'SC',
+        'South Dakota': 'SD','Tennessee': 'TN','Texas': 'TX','Utah': 'UT','Vermont': 'VT','Virginia': 'VA',
+        'Washington': 'WA','West Virginia': 'WV','Wisconsin': 'WI','Wyoming': 'WY',
+    }
     # Set variable for output file path
     output_file = os.path.join('Resources','employee_data_new.csv')
     
@@ -24,6 +33,12 @@ with open(csvpath, newline='') as csvfile:
         # Check if the line read in is the header - if it is don't add it to the idDict
         if row[0] != "Emp ID":
             empId,name,dob,ssn,state = row.strip().split(',')
+            firstName,lastName = name.split(' ')
+            year,month,day = dob.split('-')
+            dobNew = f('{month}/{day}/{year}')
+            ssn1,ssn2,ssn3 = ssn.split('-')
+            ssnNew = f('***-**-{ssn3}')
+
             data = values.split(',')
             # Print results to a file named pyPoll_results.csv
 
