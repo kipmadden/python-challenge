@@ -4,12 +4,12 @@ import csv
 import re
 
 # Ask for user input to run file 1, file 2
-userInput = input(f'Analyze (1) paragraph_1.txt (2) paragraph_2.txt')
+userInput = input(f'Please enter a number to analyze (1) paragraph_1.txt (2) paragraph_2.txt :   ')
 
 # Parse userInput and create filepath accordingly
-if userInput == 1:
+if int(userInput) == 1:
     csvpath = os.path.join('raw_data', 'paragraph_1.txt')
-elif userInput == 2:
+elif int(userInput) == 2:
     csvpath = os.path.join('raw_data', 'paragraph_2.txt')
 else:
     print(f'You entered an invalid entry so we will just pick paragraph_1.txt')  
