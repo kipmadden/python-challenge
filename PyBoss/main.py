@@ -56,7 +56,7 @@ with open(csvpath, newline='') as csvfile:
         # so we need to use a nested list to write each string as a separate line because the
         # .writerows method takes an iterable and uses each element of that iterable for each column
         for result in employeeList:
-            writer.writerows([[employeeList]])
+            writer.writerows([result])
 
 
 # Iterate through the list of strings and print each one to the terminal
