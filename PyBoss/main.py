@@ -24,6 +24,8 @@ with open(csvpath, newline='') as csvfile:
         'South Dakota': 'SD','Tennessee': 'TN','Texas': 'TX','Utah': 'UT','Vermont': 'VT','Virginia': 'VA',
         'Washington': 'WA','West Virginia': 'WV','Wisconsin': 'WI','Wyoming': 'WY',
     }
+    newHeader = ['Emp ID','First Name','Last Name','DOB','SSN','State']
+    firstRow = True
     # Set variable for output file path
     output_file = os.path.join('Resources','employee_data_new.csv')
     
@@ -38,22 +40,21 @@ with open(csvpath, newline='') as csvfile:
             dobNew = f('{month}/{day}/{year}')
             ssn1,ssn2,ssn3 = ssn.split('-')
             ssnNew = f('***-**-{ssn3}')
+            stateNew = us_state_abbrev[state]
+            newRow = 
+        else:
+            
+        # Print results to a file named pyPoll_results.csv
+        #  Open the output file path using a context manager
+        with open(output_file, "w", newline="") as datafile:
+            # pass the datafile object to the writer
+            writer = csv.writer(datafile)
 
-            data = values.split(',')
-            # Print results to a file named pyPoll_results.csv
-
-
-
-            #  Open the output file path using a context manager
-            with open(output_file, "w", newline="") as datafile:
-                # pass the datafile object to the writer
-                writer = csv.writer(datafile)
-
-                # Write the result as a separate line from the list results (each element is a string) 
-                # so we need to use a nested list to write each string as a separate line because the
-                # .writerows method takes an iterable and uses each element of that iterable for each column
-                for result in results:
-                    writer.writerows([[result]])
+            # Write the result as a separate line from the list results (each element is a string) 
+            # so we need to use a nested list to write each string as a separate line because the
+            # .writerows method takes an iterable and uses each element of that iterable for each column
+            for result in results:
+                writer.writerows([[result]])
 
 # Check if there is more than one occurance of the EmpID (this would be voter fraud) 
 if len(employeeList) != len(set(employeeList)):
