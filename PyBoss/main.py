@@ -41,9 +41,9 @@ with open(csvpath, newline='') as csvfile:
             ssn1,ssn2,ssn3 = ssn.split('-')
             ssnNew = f('***-**-{ssn3}')
             stateNew = us_state_abbrev[state]
-            newRow = 
+            newRow = list(empId,firstName,lastName,dobNew,ssnNew,stateNew)
         else:
-            
+
         # Print results to a file named pyPoll_results.csv
         #  Open the output file path using a context manager
         with open(output_file, "w", newline="") as datafile:
