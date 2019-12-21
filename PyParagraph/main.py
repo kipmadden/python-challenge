@@ -48,6 +48,16 @@ with open(csvpath, newline='') as csvfile:
     numRegexWords = len(wordList)
     print(f'Approximate Regex "\w+" Word Count: {numRegexWords}')
 
+    # Alternate method using regex2 expression to not count contractions as a separate word
+    # For example the \w+ method will count "Can't" as two separate words because it sees the "'" as the end of
+    # the words "Can" because of the "'" then it counts the "t" as a separate word
+    # Using the regex expression (?<![\w\'])\w+?(?=\b|n\'t) we eliminate counting contractions as two distinct words
+    wordRegex2 = r'(?<![\w\'])\w+?(?=\b|n\'t)'
+    wordList2 = re.findall(wordRegex2,giantString)
+    numRegex2Words = len(wordList2)
+    print(f'Approximate Regex2 "(?<![\w\'])\w+?(?=\b|n\'t)" Word Count: {numRegex2Words}')
+    
+
     # Count sentences by enumerating period characters
     sentenceSplit = re.split("(?<=[.!?]) +", giantString)
     numSentence = len(sentenceSplit)
@@ -60,8 +70,10 @@ with open(csvpath, newline='') as csvfile:
     letterRegexList = re.findall(letterRegex,giantString)
     letterRegexCount = len(letterRegexList)
     letterCountRegexAvg = round(letterRegexCount/numRegexWords,2)
+    letterCountRegex2Avg = round(letterRegexCount/numRegex2Words,2)
     print(f'Total Letter Count "[A-Z,a-z]: {letterRegexCount}')
     print(f'Average Letter Count using Regex : {letterCountRegexAvg}')
+    print(f'Average Letter Count using Regex2 : {letterCountRegex2Avg}')
 
     # Calculate the average sentence length by dividing the number of Words by the number of sentences
     sentenceLength = numRegexWords / numSentence
