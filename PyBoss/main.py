@@ -34,29 +34,29 @@ with open(csvpath, newline='') as csvfile:
 
         # Check if the line read in is the header - if it is don't add it to the idDict
         if row[0] != "Emp ID":
-            empId,name,dob,ssn,state = [elem.strip().split(';') for elem in row]
-            print(empId)
+            empId,name,dob,ssn,state = [elem for elem in row]
             firstName,lastName = str(name).split(' ')
             year,month,day = str(dob).split('-')
-            dobNew = str(f'{month}/{day}/{year}')
+            dobNew = f'{month}/{day}/{year}'
             ssn1,ssn2,ssn3 = str(ssn).split('-')
             ssnNew = f'***-**-{ssn3}'
-            stateNew = us_state_abbrev[[state]]
-            newRow = list(empId,firstName,lastName,dobNew,ssnNew,stateNew)
+            stateNew = us_state_abbrev[str(state)]
+            newRow = [empId,firstName,lastName,dobNew,ssnNew,stateNew]
             employeeList.append(newRow)
-        else:
+        if firstRow:
             employeeList.append(newHeader)
+            firstRow = False
         # Print results to a file named pyPoll_results.csv
         #  Open the output file path using a context manager
-        with open(output_file, "w", newline="") as datafile:
-            # pass the datafile object to the writer
-            writer = csv.writer(datafile)
+    with open(output_file, "w", newline="") as datafile:
+        # pass the datafile object to the writer
+        writer = csv.writer(datafile)
 
-            # Write the result as a separate line from the list results (each element is a string) 
-            # so we need to use a nested list to write each string as a separate line because the
-            # .writerows method takes an iterable and uses each element of that iterable for each column
-            for result in employeeList:
-                writer.writerows([[employeeList]])
+        # Write the result as a separate line from the list results (each element is a string) 
+        # so we need to use a nested list to write each string as a separate line because the
+        # .writerows method takes an iterable and uses each element of that iterable for each column
+        for result in employeeList:
+            writer.writerows([[employeeList]])
 
 
 # Iterate through the list of strings and print each one to the terminal
