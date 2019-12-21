@@ -2,7 +2,7 @@
 import os
 import csv
 
-# Create a file path for the election_data csv file
+# Create a file path for the employee_data csv file
 csvpath = os.path.join('Resources', 'employee_data.csv')
 
 # Read in the csv file
@@ -13,6 +13,7 @@ with open(csvpath, newline='') as csvfile:
 
     # Set variable to capture two columns of data EmpID and Candidate name
     employeeList = []
+    # Create dictionary mapping State names spelled out and the capital two letter abbreviation
     us_state_abbrev = {
         'Alabama': 'AL','Alaska': 'AK','Arizona': 'AZ','Arkansas': 'AR','California': 'CA','Colorado': 'CO',
         'Connecticut': 'CT','Delaware': 'DE','Florida': 'FL','Georgia': 'GA','Hawaii': 'HI','Idaho': 'ID',
@@ -24,17 +25,19 @@ with open(csvpath, newline='') as csvfile:
         'South Dakota': 'SD','Tennessee': 'TN','Texas': 'TX','Utah': 'UT','Vermont': 'VT','Virginia': 'VA',
         'Washington': 'WA','West Virginia': 'WV','Wisconsin': 'WI','Wyoming': 'WY',
     }
+    # Create list variable newHeader to store the new header value names (we added a column to the output by splitting the name into firstName and lastName)
     newHeader = ['Emp ID','First Name','Last Name','DOB','SSN','State']
+    # Initialize a state variable firstRow to be True - after we iterate through the first row (the header) we set this variable to False
     firstRow = True
     # Set variable for output file path
     output_file = os.path.join('Resources','employee_data_new.csv')
     
-    # Make a list of dictionaries 
+    # Make a list of lists called employeeList 
     for row in csvreader:
 
         # Check if the row read in is the header - if it isn't process the row
         if row[0] != "Emp ID":
-            # Assign the strings in the list to variables
+            # Assign the strings in the list "row" to 5 variables simultaneously using a list comprehension on the row list
             empId,name,dob,ssn,state = [elem for elem in row]
             # Split the name field into firstName and lastName 
             firstName,lastName = name.split(' ')

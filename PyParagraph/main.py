@@ -52,10 +52,10 @@ with open(csvpath, newline='') as csvfile:
     # For example the \w+ method will count "Can't" as two separate words because it sees the "'" as the end of
     # the words "Can" because of the "'" then it counts the "t" as a separate word
     # Using the regex expression (?<![\w\'])\w+?(?=\b|n\'t) we eliminate counting contractions as two distinct words
-    wordRegex2 = r'(?<![\w\'])\w+?(?=\b|n\'t)'
+    wordRegex2 = r'(?<!\S[\w+\'])\w+?(?=\b|n\'t)'
     wordList2 = re.findall(wordRegex2,giantString)
     numRegex2Words = len(wordList2)
-    print(f'Approximate Regex2 "(?<![\w\'])\w+?(?=\b|n\'t)" Word Count: {numRegex2Words}')
+    print(f'Approximate Regex2 "(?<!\S[\w\'])\w+?(?=\b|n\'t)" Word Count: {numRegex2Words}')
     
 
     # Count sentences by enumerating period characters
