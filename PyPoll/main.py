@@ -39,7 +39,7 @@ else:
     # Store the number of votes each candidate received and the percentage of the total votes as values in a dictionary
     # with the candidate name as the key
     for cand in candidatesVoted:
-        canDict[cand] = [canList.count(cand),round(canList.count(cand)/totalVotes*100,3)]
+        canDict[str(cand)] = [canList.count(cand),round(canList.count(cand)/totalVotes*100,3)]
         # Check if the number of votes the current candidate has is greater than the current winvotes variable
         # If it is then replace the value of winvotes with the new higher count and set the winner variable to the
         # name of the current candidate
@@ -60,7 +60,7 @@ for candidate in canDict.keys():
     results.append(f'{candidate}: {canDict[candidate][1]}% {canDict[candidate][0]:,}')
 results.append(f'------------------------------')
 results.append(f'Winner: {winner}')
-
+results.append(f'------------------------------')
 
 # Iterate through the list of strings and print each one to the terminal
 for result in results:
@@ -81,3 +81,4 @@ with open(output_file, "w", newline="") as datafile:
     # .writerows method takes an iterable and uses each element of that iterable for each column
     for result in results:
         writer.writerows([[result]])
+        #print([[result]])
