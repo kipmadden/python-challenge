@@ -39,7 +39,7 @@ else:
     # Store the number of votes each candidate received and the percentage of the total votes as values in a dictionary
     # with the candidate name as the key
     for cand in candidatesVoted:
-        canDict[str(cand)] = [canList.count(cand),round(canList.count(cand)/totalVotes*100,3)]
+        canDict[cand] = [canList.count(cand),round(canList.count(cand)/totalVotes*100,3)]
         # Check if the number of votes the current candidate has is greater than the current winvotes variable
         # If it is then replace the value of winvotes with the new higher count and set the winner variable to the
         # name of the current candidate
