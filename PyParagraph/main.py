@@ -2,6 +2,7 @@
 import os
 import csv
 import re
+import nltk
 
 # Ask for user input to run file 1, file 2
 userInput = input(f'Please enter a number to analyze (1) paragraph_1.txt (2) paragraph_2.txt :   ')
@@ -33,7 +34,7 @@ with open(csvpath, newline='') as csvfile:
     print()
     print(f'Paragraph Analysis for the file: {filePath} in the folder: {directoryPath}')
     print('---------------------------------------------------------------------------')
-    # iterate throught the list 
+    # iterate through the list 
     for row in csvreader:
         string = ' '.join(row)
         giantString = giantString + string
@@ -51,7 +52,7 @@ with open(csvpath, newline='') as csvfile:
     # Alternate method using regex2 expression to not count contractions as a separate word
     # For example the \w+ method will count "Can't" as two separate words because it sees the "'" as the end of
     # the words "Can" because of the "'" then it counts the "t" as a separate word
-    # Using the regex expression (?<![\w\'])\w+?(?=\b|n\'t) we eliminate counting contractions as two distinct words
+    # Using the regex expression (?<!\S[\w\'])\w+?(?=\b|n\'t) we eliminate counting contractions as two distinct words
     wordRegex2 = r'(?<!\S[\w+\'])\w+?(?=\b|n\'t)'
     wordList2 = re.findall(wordRegex2,giantString)
     numRegex2Words = len(wordList2)
@@ -64,6 +65,11 @@ with open(csvpath, newline='') as csvfile:
     #print(f'Sentence List: {sentenceSplit}')
     print(f'Approximate Sentence Count: {numSentence}')
 
+    # Use the nltk module to get sentences
+    #nltk.download('punkt')
+    nltk_tokens = nltk.sent_tokenize(giantString)
+    print (f'Approximate nltk Sentence Count: {len(nltk_tokens)}')
+    
     # Count the Average Letter Count by only considering characters A-Z and a-z (no letters from other languages)
     # and dividing by the Regex Word count
     letterRegex = r'[A-Za-z]'
@@ -71,7 +77,7 @@ with open(csvpath, newline='') as csvfile:
     letterRegexCount = len(letterRegexList)
     letterCountRegexAvg = round(letterRegexCount/numRegexWords,2)
     letterCountRegex2Avg = round(letterRegexCount/numRegex2Words,2)
-    print(f'Total Letter Count "[A-Z,a-z]: {letterRegexCount}')
+    print(f'Total Letter Count "[A-Za-z]: {letterRegexCount}')
     print(f'Average Letter Count using Regex : {letterCountRegexAvg}')
     print(f'Average Letter Count using Regex2 : {letterCountRegex2Avg}')
 
@@ -80,45 +86,5 @@ with open(csvpath, newline='') as csvfile:
     print(f'Average Sentence Length: {sentenceLength}')
 
 
-    #print(wordList)
-        # Check if the row read in is the header - if it isn't process the row
-        # if row[0] != "Emp ID":
-        #     # Assign the strings in the list to variables
-        #     empId,name,dob,ssn,state = [elem for elem in row]
-        #     # Split the name field into firstName and lastName 
-        #     firstName,lastName = name.split(' ')
-        #     # Split the dob field into year, month and day
-        #     year,month,day = dob.split('-')
-        #     # format the dobNew using f-string
-        #     dobNew = f'{month}/{day}/{year}'
-        #     # Split the SSN by the '-' into three parts
-        #     ssn1,ssn2,ssn3 = ssn.split('-')
-        #     # Obfuscate the first 5 digits of the SSN and only show the last 4 digits
-        #     ssnNew = f'***-**-{ssn3}'
-        #     # Use us_state_abbrev dict to transform the fully spelled state name into 2 letter code
-        #     stateNew = us_state_abbrev[state]
-        #     # Form a new list of strings and append it to the list of lists employeeList
-        #     newRow = [empId,firstName,lastName,dobNew,ssnNew,stateNew]
-        #     employeeList.append(newRow)
-        # # Check if the firstRow variable is True - meaning we haven't written the header line
-        # if firstRow:
-        #     # initialize the employeeList with the newHeader list and set firstRow variable to False
-        #     employeeList.append(newHeader)
-        #     firstRow = False
-    # Print results to a file named employee_data_new.csv
-    #  Open the output file path using a context manager
-    # with open(output_file, "w", newline="") as datafile:
-    #     # pass the datafile object to the writer
-    #     writer = csv.writer(datafile)
-
-    #     # The .writerows method takes an iterable and uses each element of that iterable for each column
-    #     # employeeList is a list of lists, therefore result is a list (iterable)
-    #     for result in employeeList:
-    #         writer.writerows([result])
-
-
-# Iterate through the list of strings and print each one to the terminal
-#for result in employeeList:
-#    print(result)
-
+    
 

@@ -16,15 +16,15 @@ with open(csvpath, newline='') as csvfile:
     canList = []
     canDict = {}
     
-        # Read each row of data and capture VoterID and Candidate name into a dictionary idList
+        # Read each row of data and capture VoterID and Candidate name into a lists
     for row in csvreader:
-        # Check if the line read in is the header - if it is don't add it to the idList
+        # Check if the line read in is the header - if it isn't add it to the idList and canList
         if row[0] != "Voter ID":
                
             idList.append(row[0])
             canList.append(row[2])
 
-# Check if there is more than one occurance of the VoterID (this would be voter fraud) 
+# Check if there is more than one occurence of the VoterID (this would be voter fraud) 
 if len(idList) != len(set(idList)):
     print(f'Looks like there is voter fraud!')
 else:
